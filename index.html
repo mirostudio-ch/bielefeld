@@ -1409,30 +1409,69 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* Topbar */
   .topbar-left .topbar-contact:nth-child(2) { display: none; }
   .topbar-divider:first-of-type { display: none; }
+
+  /* Header */
   .nav-bar { display: none; }
   .mobile-menu-toggle { display: block; }
-  .header .container { gap: 16px; }
+  .header .container { gap: 10px; }
+  .logo-tagline { display: none; }
+  .logo-text { font-size: 20px; }
   .search-btn { display: none; }
   .search-bar input { padding-right: 16px; }
+  /* Header actions: icon-only, hide labels */
+  .header-action span { display: none; }
+  .header-action { padding: 8px; gap: 0; }
+  .header-action svg { width: 20px; height: 20px; }
+
+  /* Hero */
   .hero { min-height: auto; }
   .hero .container { padding-top: 32px; padding-bottom: 32px; }
-  .usp-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* USP */
+  .usp-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .usp-item { align-items: flex-start; gap: 10px; }
+  .usp-icon { width: 40px; height: 40px; flex-shrink: 0; }
+  .usp-text strong { font-size: 13px; }
+  .usp-text span { font-size: 12px; }
+
+  /* Sections */
   .category-grid { grid-template-columns: repeat(2, 1fr); }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .section { padding: 40px 0; }
+
+  /* Newsletter */
+  .newsletter-form { flex-direction: column; }
+  .newsletter-form input { width: 100%; }
+  .newsletter-form button { width: 100%; justify-content: center; }
+
+  /* Footer */
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
   .info-stats { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 480px) {
+  /* Topbar: hide entirely on very small screens */
+  .topbar { display: none; }
+
+  /* Header: keep only search + cart + burger */
+  .header-actions .header-action:not(:last-child) { display: none; }
+  .search-bar input { font-size: 14px; }
+
+  /* USP */
   .usp-grid { grid-template-columns: 1fr; }
-  .category-grid { grid-template-columns: 1fr; }
+
+  /* Categories / Products */
+  .category-grid { grid-template-columns: repeat(2, 1fr); }
   .products-grid { grid-template-columns: 1fr; }
-  .newsletter-form { flex-direction: column; }
+
+  /* Footer */
   .footer-grid { grid-template-columns: 1fr; }
+
+  /* Hero */
   .hero-actions { flex-direction: column; }
   .btn-primary, .btn-secondary-hero { justify-content: center; }
 }
