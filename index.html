@@ -1453,6 +1453,119 @@ body {
   .info-stats { grid-template-columns: 1fr 1fr; }
 }
 
+/* ═══════════════════════════════════════
+   MOBILE NAV DRAWER
+   ═══════════════════════════════════════ */
+.mobile-nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.mobile-nav-overlay.open { opacity: 1; }
+.mobile-nav {
+  position: fixed;
+  top: 0; right: 0;
+  width: min(320px, 88vw);
+  height: 100%;
+  background: var(--white);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  overflow-y: auto;
+}
+.mobile-nav.open { transform: translateX(0); }
+.mobile-nav-overlay.open,
+.mobile-nav.open { display: flex; }
+.mobile-nav-overlay { display: block; pointer-events: none; }
+.mobile-nav-overlay.open { pointer-events: auto; }
+
+.mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-100);
+  flex-shrink: 0;
+}
+.mobile-nav-close {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--gray-700);
+  border-radius: var(--radius-sm);
+}
+.mobile-nav-close:hover { background: var(--gray-100); }
+.mobile-nav-close svg { width: 22px; height: 22px; display: block; }
+
+.mobile-nav-links {
+  flex: 1;
+  padding: 8px 0;
+  overflow-y: auto;
+}
+.mobile-nav-group {
+  border-bottom: 1px solid var(--gray-100);
+}
+.mobile-nav-group summary {
+  list-style: none;
+  padding: 14px 20px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-900);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.mobile-nav-group summary::-webkit-details-marker { display: none; }
+.mobile-nav-group summary::after {
+  content: '';
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-right: 2px solid var(--gray-500);
+  border-bottom: 2px solid var(--gray-500);
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.mobile-nav-group[open] summary::after { transform: rotate(-135deg); }
+.mobile-nav-group a {
+  display: block;
+  padding: 10px 20px 10px 32px;
+  font-size: 14px;
+  color: var(--gray-700);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+.mobile-nav-group a:hover { color: var(--blue-700); background: var(--blue-50); }
+
+.mobile-nav-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.mobile-nav-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gray-700);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+.mobile-nav-contact svg { width: 16px; height: 16px; flex-shrink: 0; }
+
 @media (max-width: 480px) {
   /* Topbar: hide entirely on very small screens */
   .topbar { display: none; }
@@ -2185,6 +2298,66 @@ body {
   </div>
 </footer>
 
+<!-- ═══ MOBILE NAV ═══ -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+<div class="mobile-nav" id="mobileNav">
+  <div class="mobile-nav-header">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="white"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+      </div>
+      <div class="logo-text">Bielefeld</div>
+    </a>
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Schließen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav-links">
+    <details class="mobile-nav-group">
+      <summary>Desinfektion &amp; Hygiene</summary>
+      <a href="#">Händedesinfektion</a>
+      <a href="#">Flächendesinfektion</a>
+      <a href="#">Schutzhandschuhe</a>
+      <a href="#">Mundschutz &amp; Masken</a>
+    </details>
+    <details class="mobile-nav-group">
+      <summary>Wundversorgung</summary>
+      <a href="#">Verbände &amp; Pflaster</a>
+      <a href="#">Wundauflagen</a>
+      <a href="#">Kompressen</a>
+      <a href="#">Fixiermaterial</a>
+    </details>
+    <details class="mobile-nav-group">
+      <summary>Inkontinenz &amp; Stoma</summary>
+      <a href="#">Inkontinenzeinlagen</a>
+      <a href="#">Stoma-Beutel</a>
+      <a href="#">Hautschutz</a>
+      <a href="#">Zubehör</a>
+    </details>
+    <details class="mobile-nav-group">
+      <summary>Diagnostik &amp; Monitoring</summary>
+      <a href="#">Blutdruckmessgeräte</a>
+      <a href="#">Blutzuckermessgeräte</a>
+      <a href="#">Thermometer</a>
+      <a href="#">Pulsoximeter</a>
+    </details>
+    <details class="mobile-nav-group">
+      <summary>Mobilität &amp; Rehabilitation</summary>
+      <a href="#">Gehhilfen</a>
+      <a href="#">Rollstühle</a>
+      <a href="#">Bandagen &amp; Orthesen</a>
+      <a href="#">Lagerungshilfen</a>
+    </details>
+  </nav>
+  <div class="mobile-nav-footer">
+    <a href="tel:+41445551234" class="mobile-nav-contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      +41 44 555 12 34
+    </a>
+    <a href="#" class="fachpersonal-badge" style="width:fit-content">Für Fachpersonal</a>
+  </div>
+</div>
+
 <!-- ═══ BACK TO TOP ═══ -->
 <button class="back-to-top" id="backToTop" aria-label="Nach oben">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
@@ -2224,6 +2397,27 @@ document.querySelectorAll('.lang-selector button').forEach(btn => {
     btn.classList.add('active');
   });
 });
+
+// Mobile nav
+const mobileNav = document.getElementById('mobileNav');
+const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+const mobileNavClose = document.getElementById('mobileNavClose');
+const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+
+function openMobileNav() {
+  mobileNav.classList.add('open');
+  mobileNavOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+  mobileNavOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+mobileMenuToggle.addEventListener('click', openMobileNav);
+mobileNavClose.addEventListener('click', closeMobileNav);
+mobileNavOverlay.addEventListener('click', closeMobileNav);
 </script>
 </body>
 </html>
